@@ -16,18 +16,12 @@ class MangaController extends Controller
      */
     public function index()
     {
-        $mangas = Manga::get();
-        foreach ($mangas as $key => $manga) {
-            $nextManga = $manga;
-            $nextManga->link_to_show = route('admin.mangas.show', [ 'id' => $manga->id ]);
-            $nextManga->link_to_edit = route('admin.mangas.edit', [ 'id' => $manga->id ]);
-            $nextManga->link_to_delete = route('admin.mangas.destroy', [ 'id' => $manga->id ]);
-            $mangas[$key] = $nextManga;
-        }
-        return [
+        $mangas = Manga::select()->paginate(15);
+
+        return view('admin.mangas.index', [
             'link_to_create' => route('admin.mangas.create'),
             'mangas' => $mangas
-        ];
+        ]);
     }
 
     /**
@@ -105,6 +99,7 @@ class MangaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Manga::find($id)->delete();
+        return redirect()->back();
     }
 }
