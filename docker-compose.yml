@@ -1,0 +1,47 @@
+version: '3'
+services:
+    nginx:
+        image: bitnami/nginx
+        ports:
+            - 8000:8080
+            - 443:8443
+        volumes:
+            - ./nginx/my_vhost.conf:/bitnami/nginx/conf/vhosts/my_vhost.conf
+            - ./app:/var/www/html
+        depends_on:
+            - phpfpm
+    phpfpm:
+        build:
+            context: ./phpfpm
+            dockerfile: Dockerfile
+        volumes:
+            - ./app:/var/www/html
+    database:
+        image: mysql:5.7
+        restart: always
+        volumes:
+            - ./database/mysql/scripts:/docker-entrypoint-initdb.d
+        environment:
+            TZ: Asia/Bangkok
+            MYSQL_DATABASE: admin_db
+            MYSQL_USER: admin_db
+            MYSQL_PASSWORD: pp6321
+            MYSQL_ROOT_PASSWORD: 123456
+    myadmin:
+        image: phpmyadmin/phpmyadmin
+        environment:
+            TZ: Asia/Bangkok
+            PMA_HOST: database
+        ports:
+            - 8001:80
+        links: 
+            - database
+    # node:
+    #     build:
+    #         context: ./etc
+    #         dockerfile: node.Dockerfile
+    #     environment:
+    #         TZ: Asia/Bangkok
+    #     volumes:
+    #         - ./:/app
+    #     command: yarn gulp
