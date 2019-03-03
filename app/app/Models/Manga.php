@@ -15,4 +15,11 @@ class Manga extends Model
     {
         return $this->hasMany(Manga\Chater::class, 'manga_id');
     }
+     /**
+     * Get all of the video's comments.
+     */
+    public function image()
+    {
+        return $this->hasOne(Manga\Image::class, 'id', 'image_cover');
+    }
 }

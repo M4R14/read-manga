@@ -66,7 +66,7 @@ class ChaterController extends Controller
             $newChater->addImage($key, $newImage);
         }
 
-        return redirect()->route('admin.manga-chater.index');
+        return redirect()->route('admin.mangas.show', [ 'id' => $newChater->manga_id ]);
     }
 
     /**

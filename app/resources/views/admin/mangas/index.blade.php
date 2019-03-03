@@ -38,9 +38,19 @@
                     @foreach ($mangas as $key => $item)
                       <tr>
                         <td>
-                          <h4><small>#{{ $item->id }}</small> Name: {{ $item->name }}</h4>
-                          <p>Abstract: {{ $item->abstract }}</p>
-                          <small>created at: {{ $item->created_at }}</small>
+                          <div class="row">
+                            <div class="col-md-2">
+                                <img src="{{ route('admin.mangas.get-image', [ 'name' => $item->image->name ]) }}">
+                            </div>
+                            <div class="col-md-10">
+                                <h4>
+                                  <small>#{{ $item->id }}</small> Name: 
+                                  <a href="{{ route('admin.mangas.show', [ 'id' => $item->id ]) }}">{{ $item->name }}</a>
+                                </h4>
+                                <p>Abstract: {{ $item->abstract }}</p>
+                                <small>created at: {{ $item->created_at }}</small>
+                            </div>
+                          </div>
                         </td>
                         <td class="text-center">
                           <div class="checkbox">

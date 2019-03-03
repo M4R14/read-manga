@@ -18,6 +18,7 @@ class CreateMangasTable extends Migration
             $table->string('name');
             $table->text('abstract');
             $table->boolean('is_close');
+            $table->string('image_cover')->comment('fk_manga_images');
             $table->timestamps();
         });
     }
