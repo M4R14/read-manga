@@ -50,8 +50,8 @@ class ChaterController extends Controller
     public function store(Request $request)
     {
         $newChater = new Chater;
-        $newChater->name = $request->get('number');
-        $newChater->manga_id = $request->get('mangaId');
+        $newChater->name        = $request->get('number');
+        $newChater->manga_id    = $request->get('mangaId');
         $newChater->public_date = implode(' ', $request->get('public_date'));
         $newChater->save();
 

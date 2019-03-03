@@ -54,10 +54,10 @@ class MangaController extends Controller
         $newImage->save();
 
         $newManga = new Manga;
-        $newManga->name = $request->get('name');
-        $newManga->abstract = $request->get('abstract');
-        $newManga->is_close = $request->has('is_close') == true;
-        $newManga->image_cover = $newImage->id;
+        $newManga->name         = $request->get('name');
+        $newManga->abstract     = $request->get('abstract');
+        $newManga->is_close     = $request->has('is_close') == true;
+        $newManga->image_cover  = $newImage->id;
         $newManga->save();
 
         return redirect()->route('admin.mangas.index');
@@ -148,6 +148,6 @@ class MangaController extends Controller
     {
         $image_path = storage_path("app/images/manga/$name");
         $manager = new ImageManager;
-        return $manager->make($image_path)->resize(100, 100)->response();
+        return $manager->make($image_path)->resize(100, 150)->response();
     }
 }

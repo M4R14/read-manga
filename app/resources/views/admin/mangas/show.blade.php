@@ -43,14 +43,14 @@
               </div>
               <div class="box-body">
                   <table class="table table-striped">
-                    {{-- <thead>
+                    <thead>
                       <tr>
                         <th style="width: 10px">#</th>
-                        <th>Task</th>
-                        <th>Progress</th>
-                        <th style="width: 40px">Label</th>
+                        <th>ตอน</th>
+                        <th>public date</th>
+                        <th style="width: 40px">Actions</th>
                       </tr>
-                    </thead> --}}
+                    </thead>
                     <tbody>
                       @foreach ($chaters as $item)
                         <tr>
