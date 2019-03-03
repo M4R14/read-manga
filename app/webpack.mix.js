@@ -11,5 +11,7 @@ const mix = require('laravel-mix');
  |
  */
 
+mix.copyDirectory('resources/AdminLTE-2.4.9', 'public/AdminLTE-2.4.9');
+
 mix.js('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css');

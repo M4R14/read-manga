@@ -36,12 +36,10 @@ services:
             - 8001:80
         links: 
             - database
-    # node:
-    #     build:
-    #         context: ./etc
-    #         dockerfile: node.Dockerfile
-    #     environment:
-    #         TZ: Asia/Bangkok
-    #     volumes:
-    #         - ./:/app
-    #     command: yarn gulp
+    node:
+        build:
+            context: .
+            dockerfile: node.Dockerfile
+        volumes:
+            - ./app:/app
+        command: yarn gulp
