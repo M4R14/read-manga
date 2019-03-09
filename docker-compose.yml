@@ -36,6 +36,13 @@ services:
             - 8001:80
         links: 
             - database
+    home-app:
+        build:
+            context: .
+            dockerfile: node-10.Dockerfile
+        volumes:
+            - ./home-app:/app
+        command: yarn gulp
     node:
         build:
             context: .
