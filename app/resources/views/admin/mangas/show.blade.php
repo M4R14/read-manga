@@ -24,7 +24,7 @@
               <div class="box-body">
                 <div class="row">
                     <div class="col-md-2">
-                      <img src="{{route('admin.mangas.get-image', [ 'name' => $manga->image->name ])}}" >
+                      <img src="{{route('admin.manga.get-image', [ 'name' => $manga->image->name ])}}" >
                     </div>
                     <div class="col-md-10">
                       <p>{{ $manga->abstract }}</p>
@@ -36,7 +36,7 @@
               <div class="box-header with-border">
                 <h3 class="box-title">Chater</h3>
                 <div class="pull-right">
-                  <a href="{{ route('admin.manga-chaters.create', [ 'manga_id' => $manga->id ]) }}" class="btn btn-success btn-sm">
+                  <a href="{{ route('admin.manga-chater.create', [ 'manga_id' => $manga->id ]) }}" class="btn btn-success btn-sm">
                     Add
                   </a>
                 </div>
@@ -58,8 +58,8 @@
                           <td>{{ $item->name }}</td>
                           <td>{{ $item->public_date }}</td>
                           <td>
-                            <a class="btn btn-warning" href="{{ route('admin.manga-chaters.edit', [ 'id' => $item->id ]) }}" >edit</a>
-                            <form method="POST" action="{{ route('admin.manga-chaters.destroy', [ 'id' => $item->id ]) }}">
+                            <a class="btn btn-warning" href="{{ route('admin.manga-chater.edit', [ 'id' => $item->id ]) }}" >edit</a>
+                            <form method="POST" action="{{ route('admin.manga-chater.destroy', [ 'id' => $item->id ]) }}">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
                                 <div class="form-group">

@@ -10,7 +10,7 @@
         <div class="box-header with-border">
           <h3 class="box-title">Quick Example</h3>
         </div>
-        <form action="{{ route('admin.mangas.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.manga.store') }}" method="POST" enctype="multipart/form-data">
           @csrf
           <div class="box-body">
             <div class="form-group">

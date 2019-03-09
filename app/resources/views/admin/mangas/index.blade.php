@@ -30,7 +30,7 @@
                         <th>Manga</th>
                         <th>is_close</th>
                         <th class="text-center">
-                          <a class="btn btn-success"  href="{{ route('admin.mangas.create') }}">add</a>
+                          <a class="btn btn-success"  href="{{ route('admin.manga.create') }}">add</a>
                         </th>
                       </tr>
                   </thead>
@@ -40,12 +40,12 @@
                         <td>
                           <div class="row">
                             <div class="col-md-2">
-                                <img src="{{ route('admin.mangas.get-image', [ 'name' => $item->image->name ]) }}">
+                                <img src="{{ route('admin.manga.get-image', [ 'name' => $item->image->name ]) }}">
                             </div>
                             <div class="col-md-10">
                                 <h4>
                                   <small>#{{ $item->id }}</small> Name: 
-                                  <a href="{{ route('admin.mangas.show', [ 'id' => $item->id ]) }}">{{ $item->name }}</a>
+                                  <a href="{{ route('admin.manga.show', [ 'id' => $item->id ]) }}">{{ $item->name }}</a>
                                 </h4>
                                 <p>Abstract: {{ $item->abstract }}</p>
                                 <small>created at: {{ $item->created_at }}</small>
@@ -60,8 +60,8 @@
                           </div>
                         </td>
                         <td class="text-center">
-                          <a class="btn btn-warning" href="{{ route('admin.mangas.edit', [ 'id' => $item->id ]) }}" >edit</a>
-                          <form method="POST" action="{{ route('admin.mangas.destroy', [ 'id' => $item->id ]) }}">
+                          <a class="btn btn-warning" href="{{ route('admin.manga.edit', [ 'id' => $item->id ]) }}" >edit</a>
+                          <form method="POST" action="{{ route('admin.manga.destroy', [ 'id' => $item->id ]) }}">
                               {{ csrf_field() }}
                               {{ method_field('DELETE') }}
                               <div class="form-group">
@@ -78,7 +78,7 @@
               @include('layouts.pagination', [ 
                 'data' => $mangas,
                 'next_page' => function ($page) {
-                  return route('admin.mangas.index', [ 'page' => $page ]);
+                  return route('admin.manga.index', [ 'page' => $page ]);
                 }
               ])
             </div>

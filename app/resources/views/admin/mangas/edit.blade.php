@@ -10,7 +10,7 @@
         <div class="box-header with-border">
           <h3 class="box-title">Quick Example</h3>
         </div>
-        <form action="{{ route('admin.mangas.update', [ 'id' => $data->id ]) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.manga.update', [ 'id' => $data->id ]) }}" method="POST" enctype="multipart/form-data">
           @csrf
           <input name="_method" type="hidden" value="PUT">
           <div class="box-body">
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="form-group">
-              <img src="{{ route('admin.mangas.get-image', [ 'name' => $data->image->name ]) }}">
+              <img src="{{ route('admin.manga.get-image', [ 'name' => $data->image->name ]) }}">
               <div class="checkbox">
                 <label>
                   <input type="checkbox" name="remove_image" > Remove Image

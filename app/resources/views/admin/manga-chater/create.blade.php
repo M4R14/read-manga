@@ -3,7 +3,7 @@
 @section('title', 'Manga')
 
 @section('content')
-<form action="{{ route('admin.manga-chaters.store') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('admin.manga-chater.store') }}" method="POST" enctype="multipart/form-data">
   @csrf
   <input type="hidden" name="mangaId" value="{{$manga->id}}" >
   <hr>

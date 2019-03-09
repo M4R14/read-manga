@@ -19,8 +19,8 @@ Route::prefix('admin')
     ->namespace('Admin')
     ->name('admin.')
     ->group(function () {
-        Route::resource('mangas', 'MangaController');
-        Route::get('mangas/get-image/{name}', 'MangaController@getImage')
-            ->name('mangas.get-image');
-        Route::resource('manga-chaters', 'Manga\ChaterController');
+        Route::resource('manga', 'MangaController');
+        Route::get('manga/get-image/{name}', 'MangaController@getImage')
+            ->name('manga.get-image');
+        Route::resource('manga-chater', 'Manga\ChaterController');
     });
