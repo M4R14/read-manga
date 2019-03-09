@@ -103,7 +103,20 @@ class ChaterImageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $chater_id = Input::get('chater');
+        $page_number = $request->get('number');
+
+        ChaterImage::whereChaterId($chater_id)
+            ->where('page_number', '>=', $page_number)
+            ->update([
+                'page_number' => \DB::raw('page_number + 1'),
+            ]);
+
+        $chaterImage = ChaterImage::find($id);
+        $chaterImage->page_number = $page_number;
+        $chaterImage->save();
+
+        return redirect()->back();
     }
 
     /**
@@ -114,12 +127,13 @@ class ChaterImageController extends Controller
      */
     public function destroy($id)
     {
-        $chaterImage = CImage::find($id);
+        $chaterImage = chaterImage::find($id);
         $image = $chaterImage->image;
 
         $image_path = storage_path("app/images/manga/$image->name");
         Storage::delete($image_path);
 
+        $image->delete();
         $chaterImage->delete();
 
         return redirect()->back();

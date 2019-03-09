@@ -73,10 +73,30 @@
                                     <img src="{{ route('admin.manga-chater-image.show', [ 'id' => $item->id ]) }}">
                                   </td>
                                   <td>
-                                    [move]
+                                    <form method="POST" action="{{ route('admin.manga-chater-image.update', [ 'id' => $item->id ]) }}">
+                                        {{ csrf_field() }}
+                                        {{ method_field('PUT') }}
+                                        <div class="input-group input-group-sm">
+                                          <input
+                                            class="form-control"
+                                            type="number"
+                                            name="number"
+                                            value="{{ $item->number }}"
+                                          >
+                                          <span class="input-group-btn">
+                                            <button type="submit" class="btn btn-info btn-flat">move</button>
+                                          </span>
+                                        </div>
+                                    </form>
                                   </td>
                                   <td>
-                                    [del]
+                                    <form method="POST" action="{{ route('admin.manga-chater-image.destroy', [ 'id' => $item->id ]) }}">
+                                        {{ csrf_field() }}
+                                        {{ method_field('DELETE') }}
+                                        <div class="form-group">
+                                            <input type="submit" class="btn btn-danger delete-user" value="del">
+                                        </div>
+                                    </form>
                                   </td>
                               </tr>
                             @endforeach
