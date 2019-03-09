@@ -66,7 +66,7 @@ class ChaterController extends Controller
             $newChater->addImage($key, $newImage);
         }
 
-        return redirect()->route('admin.mangas.show', [ 'id' => $newChater->manga_id ]);
+        return redirect()->route('admin.manga.show', [ 'id' => $newChater->manga_id ]);
     }
 
     /**
@@ -77,7 +77,9 @@ class ChaterController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Chater::find($id);
+        $images = $data->images;
+        dd($images);
     }
 
     /**
@@ -88,7 +90,13 @@ class ChaterController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Chater::find($id);
+        $pageSize = input::get('page_size') ?: 1;
+
+        return view('admin.manga-chater.edit', [
+            'data' => $data,
+            'pageSize' => $pageSize,
+        ]);
     }
 
     /**
@@ -111,6 +119,7 @@ class ChaterController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Chater::find($id)->delete();
+        return redirect()->back();
     }
 }
