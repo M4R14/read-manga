@@ -66,7 +66,7 @@ class ChaterController extends Controller
             $newChater->addImage($key, $newImage);
         }
 
-        return redirect()->route('admin.manga.show', [ 'id' => $newChater->manga_id ]);
+        return redirect()->route('admin.manga-chater.edit', [ 'id' => $newChater->id ]);
     }
 
     /**
@@ -92,6 +92,10 @@ class ChaterController extends Controller
     {
         $data = Chater::find($id);
         $pageSize = input::get('page_size') ?: 1;
+
+        if ($data == null) {
+            return dd($data);
+        }
 
         return view('admin.manga-chater.edit', [
             'data' => $data,

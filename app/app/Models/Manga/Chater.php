@@ -18,4 +18,9 @@ class Chater extends Model
 
         return $newChaterImage;
     }
+
+    public function images()
+    {
+        return $this->hasMany(Chater\Image::class, 'chater_id', 'id');
+    }
 }
