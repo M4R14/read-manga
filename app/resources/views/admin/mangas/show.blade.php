@@ -36,7 +36,7 @@
               <div class="box-header with-border">
                 <h3 class="box-title">Chater</h3>
                 <div class="pull-right">
-                  <a href="{{ route('admin.manga-chater.create', [ 'manga_id' => $manga->id ]) }}" class="btn btn-success btn-sm">
+                  <a href="{{ route('admin.manga-chater.create', [ 'manga_id' => $manga->id, 'page_size' => 2 ]) }}" class="btn btn-success btn-sm">
                     Add
                   </a>
                 </div>

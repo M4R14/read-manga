@@ -23,4 +23,5 @@ Route::prefix('admin')
         Route::get('manga/get-image/{name}', 'MangaController@getImage')
             ->name('manga.get-image');
         Route::resource('manga-chater', 'Manga\ChaterController');
+        Route::resource('manga-chater-image', 'Manga\ChaterImageController');
     });

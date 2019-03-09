@@ -40,7 +40,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="form-group">
+                      {{-- <div class="form-group">
                           <table class="table table-bordered">
                               <tbody><tr>
                                 <th style="width: 10px">Page:</th>
@@ -56,7 +56,7 @@
                               @endforeach
                             </tbody>
                           </table>
-                      </div>
+                      </div> --}}
                   </div>
                   <div class="box-footer">
                     <button type="submit" class="btn btn-primary">SAVE</button>

@@ -6,12 +6,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 
 use App\Http\Controllers\Controller;
-
+use Intervention\Image\ImageManager;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Manga;
 use App\Models\Manga\Chater;
 use App\Models\Manga\Image;
+use App\Models\Manga\Chater\Image as ChaterImage;
 
-class ChaterController extends Controller
+class ChaterImageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -30,15 +32,7 @@ class ChaterController extends Controller
      */
     public function create()
     {
-        $mangaId = input::get('manga_id');
-        $manga = Manga::find($mangaId);
-
-        $pageSize = input::get('page_size') ?: 1;
-
-        return view('admin.manga-chater.create', [
-            'manga' => $manga,
-            'pageSize' => $pageSize,
-        ]);
+        
     }
 
     /**
@@ -49,26 +43,29 @@ class ChaterController extends Controller
      */
     public function store(Request $request)
     {
-        $newChater = new Chater;
-        $newChater->name        = $request->get('number');
-        $newChater->manga_id    = $request->get('mangaId');
-        $newChater->public_date = implode(' ', $request->get('public_date'));
-        $newChater->save();
+        $file_image = $request->file('image');
+        $image_path = $file_image->store('images/manga');
+        
+        $image = new Image;
+        $image->name = basename($image_path);
+        $image->save();
+        
+        $chater_id = Input::get('chater');
+        $page_number = $request->get('number');
 
-        $files = $request->file('page');
-        if ($files) {
-            foreach ($files as $key => $file) {
-                $image_path = $file->store('images/manga');
-    
-                $newImage = new Image;
-                $newImage->name = basename($image_path);
-                $newImage->save();
-    
-                $newChater->addImage($key, $newImage);
-            }
-        }
+        ChaterImage::whereChaterId($chater_id)
+            ->where('page_number', '>=', $page_number)
+            ->update([
+                'page_number' => \DB::raw('page_number + 1'),
+            ]);
 
-        return redirect()->route('admin.manga-chater.edit', [ 'id' => $newChater->id ]);
+        $chaterImage = new ChaterImage;
+        $chaterImage->chater_id = $chater_id;
+        $chaterImage->image_id = $image->id;
+        $chaterImage->page_number = $page_number;
+        $chaterImage->save();
+
+        return redirect()->back();
     }
 
     /**
@@ -79,9 +76,11 @@ class ChaterController extends Controller
      */
     public function show($id)
     {
-        $data = Chater::find($id);
-        $images = $data->images;
-        dd($images);
+        $chaterImage = ChaterImage::find($id);
+        $image = $chaterImage->image;
+        $image_path = storage_path("app/images/manga/$image->name");
+        $manager = new ImageManager;
+        return $manager->make($image_path)->response();
     }
 
     /**
@@ -92,17 +91,7 @@ class ChaterController extends Controller
      */
     public function edit($id)
     {
-        $data = Chater::find($id);
-        $pageSize = input::get('page_size') ?: 1;
-
-        if ($data == null) {
-            return dd($data);
-        }
-
-        return view('admin.manga-chater.edit', [
-            'data' => $data,
-            'pageSize' => $pageSize,
-        ]);
+        
     }
 
     /**
@@ -125,7 +114,14 @@ class ChaterController extends Controller
      */
     public function destroy($id)
     {
-        Chater::find($id)->delete();
+        $chaterImage = CImage::find($id);
+        $image = $chaterImage->image;
+
+        $image_path = storage_path("app/images/manga/$image->name");
+        Storage::delete($image_path);
+
+        $chaterImage->delete();
+
         return redirect()->back();
     }
 }
