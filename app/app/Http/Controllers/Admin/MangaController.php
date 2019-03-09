@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Models\Manga;
 use App\Models\Manga\Image;
+use App\Models\Manga\Chater;
 
 class MangaController extends Controller
 {
@@ -23,7 +24,7 @@ class MangaController extends Controller
         $mangas = Manga::select()->paginate(15);
 
         return view('admin.mangas.index', [
-            'link_to_create' => route('admin.mangas.create'),
+            'link_to_create' => route('admin.manga.create'),
             'mangas' => $mangas
         ]);
     }
@@ -60,7 +61,7 @@ class MangaController extends Controller
         $newManga->image_cover  = $newImage->id;
         $newManga->save();
 
-        return redirect()->route('admin.mangas.index');
+        return redirect()->route('admin.manga.index');
     }
 
     /**
@@ -72,10 +73,11 @@ class MangaController extends Controller
     public function show($id)
     {
         $manga = Manga::find($id);
+        $chaters = Chater::whereMangaId($id)->paginate(15);
         return view('admin.mangas.show', [
             'manga' => $manga,
-            'link_to_add_chater' => route('admin.manga-chaters.create', [ 'manga_id' => $id ]),
-            'chaters' => $manga->chaters,
+            'link_to_add_chater' => route('admin.manga-chater.create', [ 'manga_id' => $id ]),
+            'chaters' => $chaters,
         ]) ;
     }
 

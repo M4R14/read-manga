@@ -55,7 +55,11 @@
                       @foreach ($chaters as $item)
                         <tr>
                           <td>{{ $item->id }}</td>
-                          <td>{{ $item->name }}</td>
+                          <td>
+                            <a href="{{ route('admin.manga-chater.show', [ 'id' => $item->id ]) }}">
+                              {{ $item->name }}
+                            </a>
+                          </td>
                           <td>{{ $item->public_date }}</td>
                           <td>
                             <a class="btn btn-warning" href="{{ route('admin.manga-chater.edit', [ 'id' => $item->id ]) }}" >edit</a>
@@ -72,6 +76,13 @@
                     </tbody>
                   </table>
               </div>
+              <!-- /.box-body -->
+              @include('layouts.pagination', [ 
+                'data' => $chaters,
+                'next_page' => function ($page) {
+                  return route('admin.manga.index', [ 'page' => $page ]);
+                }
+              ])
           </div>
       </div>
       <div class="col-md-3">
